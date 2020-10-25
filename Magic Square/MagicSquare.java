@@ -6,9 +6,11 @@ public class MagicSquare {
 		//instance variables 
 		Scanner myObj = new Scanner(System.in);
 		int magicSquare [][] = new int [8][8];
+		int genMagicSquare [][] = new int [9][9];
 		private int arraySize;
 		private int endIndex;
 		private int magicConstant;
+		int midNum;
 		
 		
 		
@@ -17,6 +19,7 @@ public class MagicSquare {
 			 arraySize=0;
 			 endIndex=0;
 			 magicConstant=0;
+			 midNum=0;
 			
 		}
 		
@@ -49,15 +52,19 @@ public class MagicSquare {
 				
 			}//end of outer for loop
 			
+
+		}
 		
-			//print magic square
+		
+		//print magic square
+		public void printMagic() {
+		
 			for (int i = 0; i <= endIndex; i++) {
 				System.out.print("\n");
 				for (int j = 0; j <= endIndex; j++) {
 					System.out.print(magicSquare[i][j] + " ");
 				}//end of inner
 			}//end of outer
-		
 		}
 		
 		
@@ -138,9 +145,106 @@ public class MagicSquare {
 			return true;
 		}
 		
+		//returns magic constant
 		public int constant() {
 			return magicConstant;
 		}
+		
+		//asks the user if they want to run again
+		public boolean runAgain() {
+			int run;
+			System.out.println("Would you like to run again? Type 1 for yes and 2 for no.");
+			run = myObj.nextInt();
+			
+			if (run ==2) {
+				System.out.println("Program is ending.");
+				return false;
+			}else if(run != 1 && run != 2) {
+				System.out.println("Invalid input. Program will run again.");
+				return true;
+			}else {
+				System.out.println("Program is restarting.");
+				return true;
+			}//end of else
+		}
+		
+		//set array elements to 0
+		public void clearArray () {
+			for (int i = 0; i <= endIndex; i++) {
+				for (int j = 0; j <= endIndex; j++) {
+					genMagicSquare[i][j] = 0;
+				}//end of inner
+			}//end of outer
+		}
+		
+		
+		//sets given number as the middle number of top row
+		public void setGiveNum(int n) {
+			
+			midNum = endIndex / 2;
+		
+		}
+		
+		
+		//finds the rest of the magic square
+		public void findMagic(int num) {
+			
+			int numTotal = arraySize * arraySize;
+			int numCounter = 0;
+			int n = num;
+			int rowIndex = 0;
+			int tempRowIndex = 0;
+			int columnIndex = midNum;
+			int tempColIndex = 0;
+			
+			while (numCounter < numTotal) {
+			
+				genMagicSquare[rowIndex][columnIndex] = n;
+				tempRowIndex = rowIndex;
+				tempColIndex = columnIndex;
+				
+				rowIndex = rowIndex - 1;
+				columnIndex = columnIndex + 1;
+				
+				
+				if (rowIndex == -1) {
+					rowIndex = endIndex;
+				}
+				if (columnIndex == arraySize) {
+					columnIndex = 0;
+				}
+					
+			
+				
+				if (genMagicSquare[rowIndex][columnIndex] != 0){
+					rowIndex = tempRowIndex + 1;
+					columnIndex = tempColIndex;
+					
+					if (rowIndex == arraySize) {
+						rowIndex = 0;
+					}
+					
+				}
+					
+
+				n ++;
+				numCounter ++; 	
+			}//end of while
+		
+		}
+		
+		
+		//print magic square
+		public void printGenMagic() {
+		
+			for (int i = 0; i <= endIndex; i++) {
+				System.out.print("\n");
+				for (int j = 0; j <= endIndex; j++) {
+					System.out.print(genMagicSquare[i][j] + " ");
+				}//end of inner
+			}//end of outer
+		}
+
 		
 
 }

@@ -6,14 +6,17 @@ public class Main {
 		
 		MagicSquare magic = new MagicSquare();
 		Scanner myObj = new Scanner (System.in);
-		int runAgain = 1;
+		boolean runAgain = true;
 		int size;
 		int setSize;
 		boolean isMagicSquare;
 		int magicSquareConstant;
+		int generateMagicSquare;
+		int generateSize;
+		int givenNum;
 		
 		
-		while (runAgain == 1){
+		while (runAgain == true){
 			
 			System.out.println("\nWhat size do you want for your magic square? \n" 
 					+ "Please enter the length of one side as your input (i.e. 2 for 2x2). \n" 
@@ -23,12 +26,14 @@ public class Main {
 
 			if (size < 2 || size > 8) {
 				System.out.println("Invalid size. Program is restarting.");
-				runAgain=1;
+				runAgain=true;
 				
 			}else {
 				magic.setSize(size);
 				
 				magic.setNum();
+				
+				magic.printMagic();
 				
 				isMagicSquare = magic.isMagicSquare();
 				magicSquareConstant = magic.constant();
@@ -41,16 +46,59 @@ public class Main {
 					
 				}
 				
-				
-				System.out.println("Would you like run again? Type 1 for yes and 2 for no.");
-				runAgain = myObj.nextInt();
-				
-				if (runAgain==2) {
-					break;
-				}else if(runAgain != 1 && runAgain != 2) {
-					System.out.println("Invalid input. Program will run again.");
-					runAgain=1;
+				//extra credit
+				System.out.println("Would you like to generate a different magic square? "
+						+ "Type 1 for yes and 2 for no.");
+				generateMagicSquare = myObj.nextInt();
+				if (generateMagicSquare==1) {
+					
+					System.out.println("Please enter an odd size. Please enter one side length as your input.");
+					generateSize = myObj.nextInt();
+					
+					//error check for even and negative size
+					if ( (generateSize%2) == 0 || generateSize < 0){
+						System.out.println("Invalid size.");
+						runAgain = magic.runAgain();
+						if (runAgain == false) {
+							break;
+						}
+						
+					}else {
+						magic.setSize(generateSize);
+						System.out.println("Please enter 1 number for your magic square, it must be positive.");
+						givenNum = myObj.nextInt();
+						
+						if (givenNum <= 0) {
+							System.out.println("Invalid input. Please only enter positive numbers.");
+							runAgain = magic.runAgain();
+							if (runAgain == false) {
+								break;
+							}
+							
+						}else {
+							magic.clearArray();
+							magic.setGiveNum(givenNum);
+							magic.findMagic(givenNum);
+							magic.printGenMagic();
+							
+							System.out.println("\n");
+							runAgain = magic.runAgain();
+						}
+						
+						
+					}
+					
+				}else if (generateMagicSquare==2) {
+					runAgain = magic.runAgain();
+					if (runAgain == false) {
+						break;
+					}
+					
 				}
+				
+				
+				
+
 				
 			}//end of else
 			
