@@ -52,17 +52,19 @@ public class Main {
 				generateMagicSquare = myObj.nextInt();
 				if (generateMagicSquare==1) {
 					
-					System.out.println("Please enter an odd size. Please enter one side length as your input.");
+					System.out.println("Please enter an odd size. Please enter one side length as your input. \n"
+							+ "The greatest size you can input is 9.");
 					generateSize = myObj.nextInt();
 					
-					//error check for even and negative size
-					if ( (generateSize%2) == 0 || generateSize < 0){
+					//error check for even, negative size, and greater than 9
+					if ( (generateSize%2) == 0 || generateSize < 0 || generateSize > 9){
 						System.out.println("Invalid size.");
 						runAgain = magic.runAgain();
 						if (runAgain == false) {
 							break;
 						}
 						
+					//asks user to enter a number	
 					}else {
 						magic.setSize(generateSize);
 						System.out.println("Please enter 1 number for your magic square, it must be positive.");
@@ -94,6 +96,12 @@ public class Main {
 						break;
 					}
 					
+				}else {
+					System.out.println("Invalid input.");
+					runAgain = magic.runAgain();
+					if (runAgain == false) {
+						break;
+					}
 				}
 				
 				

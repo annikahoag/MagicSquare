@@ -44,7 +44,7 @@ public class MagicSquare {
 					if (num >= 0) {
 						magicSquare[i][j] = num;
 					}else {
-						System.out.println("Error. Please start over");
+						System.out.println("Error. This position will be filled in as 0.");
 					}
 			
 
@@ -167,6 +167,7 @@ public class MagicSquare {
 				return true;
 			}//end of else
 		}
+		
 		
 		//set array elements to 0
 		public void clearArray () {
